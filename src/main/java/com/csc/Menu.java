@@ -5,39 +5,40 @@ import java.util.Scanner;
 public class Menu {
 
     public static Integer prompt(Integer lowerBound, Integer upperBound, Integer defaultValue, String promptMessage, String errorMessage) {
-        Scanner scanner = new Scanner(System.in);
-        Integer userValue;
+        try (Scanner scanner = new Scanner(System.in)) {
+            Integer userValue;
 
-        while (true) {
-            String modifiedPrompt = promptMessage;
-            if (defaultValue != null) {
-                modifiedPrompt += " Enter 'default' to use the default value of " + defaultValue + ".";
-            }
-            modifiedPrompt += " Enter 'exit' to leave the menu.";
+            while (true) {
+                String modifiedPrompt = promptMessage;
+                if (defaultValue != null) {
+                    modifiedPrompt += " Enter 'default' to use the default value of " + defaultValue + ".";
+                }
+                modifiedPrompt += " Enter 'exit' to leave the menu.";
 
-            System.out.println(modifiedPrompt);
+                System.out.println(modifiedPrompt);
 
-            String userInput = scanner.nextLine();
+                String userInput = scanner.nextLine();
 
-            if (userInput.equalsIgnoreCase("default") && defaultValue != null) {
-                return defaultValue;
-            }
+                if (userInput.equalsIgnoreCase("default") && defaultValue != null) {
+                    return defaultValue;
+                }
 
-            if (userInput.equalsIgnoreCase("exit")) {
-                return null;
-            }
+                if (userInput.equalsIgnoreCase("exit")) {
+                    return null;
+                }
 
-            try {
-                userValue = Integer.parseInt(userInput);
+                try {
+                    userValue = Integer.parseInt(userInput);
 
-                if ((lowerBound == null || userValue >= lowerBound) && 
-                    (upperBound == null || userValue <= upperBound)) {
-                    return userValue;
-                } else {
+                    if ((lowerBound == null || userValue >= lowerBound) && 
+                        (upperBound == null || userValue <= upperBound)) {
+                        return userValue;
+                    } else {
+                        System.out.println(errorMessage);
+                    }
+                } catch (NumberFormatException e) {
                     System.out.println(errorMessage);
                 }
-            } catch (NumberFormatException e) {
-                System.out.println(errorMessage);
             }
         }
     }
