@@ -2,7 +2,7 @@ package com.csc;
 
 import java.util.Scanner;
 
-public class InputValidator {
+public class Menu {
 
     public static Integer prompt(Integer lowerBound, Integer upperBound, Integer defaultValue, String promptMessage, String errorMessage) {
         Scanner scanner = new Scanner(System.in);
